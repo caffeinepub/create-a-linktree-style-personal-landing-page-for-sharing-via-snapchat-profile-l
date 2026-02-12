@@ -1,207 +1,34 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 23,
-  "summary": "Build a Linktree-style landing page for sharing via Snapchat profile link, with a premium gold-and-black background/theme, including button-style actions for Snapchat, phone (tel:), email (mailto:), and an Instagram button linking to the provided profile URL.",
-  "architectural_notes": [
-    "Include an email contact field on the landing page; render as a mailto: link when present.",
-    "Editing should not be publicly accessible; add a mechanism to lock/disable edit mode (e.g., owner-only access, hidden toggle, or passcode) so visitors cannot modify profile details.",
-    "Update visual styling to a premium gold-and-black theme/background (supersedes beige theme request).",
-    "Render phone and email as prominent button-style CTAs (like the Snapchat button) that open tel: and mailto: links respectively."
-  ],
+  "projectStateVersion": 3,
+  "summary": "App with social/action buttons needs Instagram button updated: remove the \"Follow me on Instagram\" button and ensure a single Instagram button opens the specified profile URL.",
+  "architectural_notes": [],
   "known_issues": [
-    "Current client-side editable profile UI allows anyone using the device/browser to change profile details; user requests preventing others from editing."
+    "Instagram UI currently shows an extra \"Follow me on Instagram\" button instead of a single button linking to the provided profile URL."
   ],
-  "isFixRequest": false,
+  "isFixRequest": true,
   "existing_features": [
     {
-      "id": "feature-create-a-single-page-linktree-style-personal-landing-page-that-can-be-used-as-the-website-link-in-a-snapchat-public-profile-with-sections-for-display-name-short-bio-phone-number-and-a-list-of-outbound-links",
-      "title": "Create a single-page Linktree-style personal landing page that can be used as the “Website” link in a Snapchat public profile, with sections for: display name, short bio, phone number, and a list of outbound links.",
+      "id": "feature-ensure-the-ui-shows-only-one-instagram-button-and-that-it-opens-exactly-https-www-instagram-com-ae560919-igsh-nhfmdnppnzu4owvy",
+      "title": "Ensure the UI shows only one Instagram button, and that it opens exactly: https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     },
     {
-      "id": "feature-add-an-editable-profile-details-ui-client-side-only-that-lets-the-user-input-update-display-name-bio-phone-number-and-an-arbitrary-list-of-links-label-url-and-persist-these-details-in-browser-local-storage",
-      "title": "Add an editable “Profile Details” UI (client-side only) that lets the user input/update: display name, bio, phone number, and an arbitrary list of links (label + URL), and persist these details in browser local storage.",
+      "id": "feature-remove-the-duplicate-instagram-entry-coming-from-the-profile-links-list-so-it-cannot-render-as-an-additional-follow-me-on-instagram-button-for-new-or-existing-users",
+      "title": "Remove the duplicate Instagram entry coming from the profile.links list so it cannot render as an additional \"Follow me on Instagram\" button for new or existing users.",
       "reqIds": [
         "REQ-2"
       ],
       "version": 1
     },
     {
-      "id": "feature-provide-a-share-affordance-on-the-landing-page-that-copies-the-current-page-url-to-the-clipboard-and-shows-a-confirmation-message",
-      "title": "Provide a “Share” affordance on the landing page that copies the current page URL to the clipboard and shows a confirmation message.",
+      "id": "feature-update-the-instagram-button-s-user-facing-label-text-to-english-that-does-not-say-follow-me-on-instagram-e-g-instagram",
+      "title": "Update the Instagram button’s user-facing label text to English that does not say “Follow me on Instagram” (e.g., \"Instagram\").",
       "reqIds": [
         "REQ-3"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-apply-a-coherent-creative-visual-theme-for-the-landing-page-colors-typography-spacing-and-button-styles-and-enforce-it-consistently-across-all-components-avoiding-a-blue-purple-default-look",
-      "title": "Apply a coherent, creative visual theme for the landing page (colors, typography, spacing, and button styles) and enforce it consistently across all components, avoiding a blue/purple default look.",
-      "reqIds": [
-        "REQ-4"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-basic-input-validation-and-safe-link-handling-validate-urls-prevent-javascript-links-and-ensure-phone-number-formatting-does-not-break-tel-links",
-      "title": "Add basic input validation and safe link handling: validate URLs, prevent javascript: links, and ensure phone number formatting does not break tel: links.",
-      "reqIds": [
-        "REQ-5"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-render-the-generated-images-specified-in-imagerequirements-required-as-static-assets-from-frontend-public-assets-generated-and-use-them-in-the-landing-page-design-e-g-background-hero-and-avatar-placeholder",
-      "title": "Render the generated images (specified in imageRequirements.required) as static assets from frontend/public/assets/generated and use them in the landing page design (e.g., background/hero and avatar placeholder).",
-      "reqIds": [
-        "REQ-6"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-a-new-outbound-link-entry-for-snapchat-so-the-landing-page-includes-a-button-labeled-add-me-on-snapchat-that-opens-the-provided-snapchat-add-url-https-www-snapchat-com-add-irfan-jujara1-share-id-c0ceq9xkcte-locale-en-us-username-irfan-jujara1-this-link-should-appear-in-the-default-links-list-for-new-visitors-and-should-be-added-to-existing-localstorage-profiles-only-if-a-link-with-this-exact-url-is-not-already-present",
-      "title": "Add a new outbound link entry for Snapchat so the landing page includes a button labeled \"Add me on Snapchat\" that opens the provided Snapchat add URL: https://www.snapchat.com/add/irfan_jujara1?share_id=C0cEQ9XkCtE&locale=en-US (username: irfan_jujara1). This link should appear in the default links list for new visitors and should be added to existing localStorage profiles only if a link with this exact URL is not already present.",
-      "reqIds": [
-        "REQ-7"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-default-outbound-links-list-so-the-instagram-link-points-to-the-user-provided-instagram-profile-url-https-www-instagram-com-ae560919-igsh-nhfmdnppnzu4owvy",
-      "title": "Update the default outbound links list so the Instagram link points to the user-provided Instagram profile URL: https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy",
-      "reqIds": [
-        "REQ-8"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-a-one-time-localstorage-migration-that-ensures-existing-saved-profiles-include-the-instagram-link-to-https-www-instagram-com-ae560919-igsh-nhfmdnppnzu4owvy-adding-it-only-if-a-link-with-this-exact-url-is-not-already-present",
-      "title": "Add a one-time localStorage migration that ensures existing saved profiles include the Instagram link to https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy, adding it only if a link with this exact URL is not already present.",
-      "reqIds": [
-        "REQ-9"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-default-profile-data-shown-to-first-time-visitors-to-use-the-user-provided-details-display-name-jujara-irfan-shokat-phone-number-9687626609-and-default-outbound-links-for-instagram-https-www-instagram-com-ae560919-igsh-nhfmdnppnzu4owvy-and-snapchat-https-www-snapchat-com-add-irfan-jujara1-share-id-c0ceq9xkcte-locale-en-us",
-      "title": "Update the default profile data shown to first-time visitors to use the user-provided details: display name \"Jujara Irfan shokat\", phone number \"9687626609\", and default outbound links for Instagram (https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy) and Snapchat (https://www.snapchat.com/add/irfan_jujara1?share_id=C0cEQ9XkCtE&locale=en-US).",
-      "reqIds": [
-        "REQ-10"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-an-email-address-field-to-the-profile-model-and-ui-prefilled-with-the-user-provided-email-address-ae560919-gmail-com-and-display-it-on-the-landing-page-as-a-clickable-mailto-link-when-not-in-edit-mode",
-      "title": "Add an email address field to the profile model and UI, prefilled with the user-provided email address \"ae560919@gmail.com\", and display it on the landing page as a clickable mailto link when not in edit mode.",
-      "reqIds": [
-        "REQ-11"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-client-side-validation-sanitization-for-the-email-field-to-prevent-unsafe-or-malformed-mailto-links-and-ensure-existing-saved-profiles-in-localstorage-are-migrated-to-include-the-email-field-defaulting-to-ae560919-gmail-com-only-when-the-field-is-missing",
-      "title": "Add client-side validation/sanitization for the email field to prevent unsafe or malformed mailto links, and ensure existing saved profiles in localStorage are migrated to include the email field (defaulting to \"ae560919@gmail.com\" only when the field is missing).",
-      "reqIds": [
-        "REQ-12"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-disable-public-unauthorized-editing-by-removing-the-ability-to-enter-edit-mode-in-the-ui-so-visitors-cannot-modify-the-profile-details-name-bio-phone-email-or-links-through-the-page",
-      "title": "Disable public/unauthorized editing by removing the ability to enter edit mode in the UI, so visitors cannot modify the profile details (name, bio, phone, email, or links) through the page.",
-      "reqIds": [
-        "REQ-13"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-fix-the-instagram-button-so-clicking-it-always-navigates-to-the-instagram-profile-url-https-www-instagram-com-ae560919-igsh-nhfmdnppnzu4owvy-including-for-users-who-have-older-invalid-instagram-urls-saved-in-localstorage",
-      "title": "Fix the Instagram button so clicking it always navigates to the Instagram profile URL (https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy), including for users who have older/invalid Instagram URLs saved in localStorage.",
-      "reqIds": [
-        "REQ-14"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-safe-link-handling-for-outbound-links-at-render-click-time-validate-each-link-url-as-http-https-prevent-navigation-for-invalid-unsafe-urls-and-show-an-english-error-toast-explaining-the-link-is-invalid",
-      "title": "Add safe link handling for outbound links at render/click time: validate each link URL as http/https, prevent navigation for invalid/unsafe URLs, and show an English error toast explaining the link is invalid.",
-      "reqIds": [
-        "REQ-15"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-app-s-visual-theme-to-a-beige-forward-palette-by-adjusting-the-existing-tailwind-css-color-tokens-css-variables-so-the-overall-ui-background-card-surfaces-borders-primary-accent-colors-and-link-button-states-reads-clearly-as-beige-cream-with-warm-neutrals-while-preserving-readability-and-contrast-in-both-light-and-dark-modes",
-      "title": "Update the app’s visual theme to a beige-forward palette by adjusting the existing Tailwind CSS color tokens (CSS variables) so the overall UI (background, card surfaces, borders, primary/accent colors, and link/button states) reads clearly as beige/cream with warm neutrals, while preserving readability and contrast in both light and dark modes.",
-      "reqIds": [
-        "REQ-16"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-replace-the-landing-page-profile-avatar-image-with-the-user-provided-uploaded-image-snapchat-305315735-jpg-instead-of-the-current-placeholder-avatar",
-      "title": "Replace the landing page profile avatar image with the user-provided uploaded image (Snapchat-305315735.jpg) instead of the current placeholder avatar.",
-      "reqIds": [
-        "REQ-17"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-remove-the-instagram-and-twitter-outbound-link-buttons-from-the-landing-page-by-filtering-them-out-of-the-profile-links-list-both-for-new-visitors-and-for-users-who-already-have-saved-data-in-localstorage",
-      "title": "Remove the Instagram and Twitter outbound link buttons from the landing page by filtering them out of the profile links list (both for new visitors and for users who already have saved data in localStorage).",
-      "reqIds": [
-        "REQ-18"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-default-profile-links-and-localstorage-migration-logic-so-the-app-no-longer-adds-forces-or-auto-corrects-any-instagram-link-in-the-profile-data",
-      "title": "Update the default profile links and localStorage migration logic so the app no longer adds, forces, or auto-corrects any Instagram link in the profile data.",
-      "reqIds": [
-        "REQ-19"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-change-the-landing-page-background-theme-to-a-premium-looking-black-gold-color-combination-by-updating-the-tailwind-theme-tokens-css-variables-and-the-landing-page-background-overlays-so-the-overall-ui-reads-as-premium-gold-on-black-while-keeping-readable-contrast-for-text-and-buttons",
-      "title": "Change the landing page background/theme to a premium-looking black + gold color combination by updating the Tailwind theme tokens (CSS variables) and the landing page background/overlays so the overall UI reads as premium gold-on-black (while keeping readable contrast for text and buttons).",
-      "reqIds": [
-        "REQ-20"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-render-the-phone-number-as-a-full-width-button-in-the-main-links-section-same-visual-style-as-the-existing-snapchat-button-clicking-the-phone-button-must-open-the-device-dialer-using-a-safe-tel-link-built-from-the-stored-phone-number",
-      "title": "Render the phone number as a full-width button in the main Links section (same visual style as the existing Snapchat button). Clicking the phone button must open the device dialer using a safe tel: link built from the stored phone number.",
-      "reqIds": [
-        "REQ-21"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-render-the-email-address-as-a-full-width-button-in-the-main-links-section-same-visual-style-as-the-existing-snapchat-button-clicking-the-email-button-must-open-the-default-mail-client-using-a-safe-mailto-link-built-from-the-stored-email-address",
-      "title": "Render the email address as a full-width button in the main Links section (same visual style as the existing Snapchat button). Clicking the email button must open the default mail client using a safe mailto: link built from the stored email address.",
-      "reqIds": [
-        "REQ-22"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-an-instagram-full-width-button-in-the-links-section-same-visual-style-as-the-existing-snapchat-button-that-navigates-to-the-exact-instagram-profile-url-https-www-instagram-com-ae560919-igsh-nhfmdnppnzu4owvy-ensure-instagram-is-no-longer-filtered-removed-from-links-at-load-time-or-render-time",
-      "title": "Add an Instagram full-width button in the Links section (same visual style as the existing Snapchat button) that navigates to the exact Instagram profile URL: https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy . Ensure Instagram is no longer filtered/removed from links at load-time or render-time.",
-      "reqIds": [
-        "REQ-23"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-default-profile-links-and-localstorage-initialization-migration-behavior-so-existing-users-will-see-the-instagram-button-even-if-their-stored-profile-previously-had-instagram-removed-add-the-instagram-link-only-if-a-link-with-this-exact-url-is-not-already-present-https-www-instagram-com-ae560919-igsh-nhfmdnppnzu4owvy",
-      "title": "Update the default profile links and localStorage initialization/migration behavior so existing users will see the Instagram button even if their stored profile previously had Instagram removed. Add the Instagram link only if a link with this exact URL is not already present: https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy",
-      "reqIds": [
-        "REQ-24"
       ],
       "version": 1
     }
@@ -209,66 +36,12 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Create a Linktree-style landing page with the user's name, phone number, and other details for sharing via Snapchat profile website link",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-2",
-      "summary": "Add a Snapchat outbound link/button to the landing page using the provided username (irfan_jujara1) and Snapchat add URL",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-4",
-      "summary": "Add an email address field/section to the landing page (ae560919@gmail.com), ideally as a clickable mailto link",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-5",
-      "summary": "Prevent public/unauthorized editing of the profile; restrict or disable the editable Profile Details UI so other people cannot change the user's landing page details",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-7",
-      "summary": "Update/change the profile image (avatar) on the landing page to use a user-provided picture",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-8",
-      "summary": "Remove/delete the Twitter button/link from the landing page (if currently shown).",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-10",
-      "summary": "Change the landing page background/theme to a premium gold + black color combination (premium-looking background).",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-11",
-      "summary": "Add a phone button similar to the Snapchat button; clicking should open the device dialer via a tel: link",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-12",
-      "summary": "Add an email (Gmail) button similar to the Snapchat button; clicking should open the mail client via a mailto: link",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-13",
-      "summary": "Add an Instagram button similar to the Snapchat button that navigates to https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy",
+      "summary": "Remove the \"Follow me on Instagram\" button and keep only one Instagram button that opens https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy",
       "reqIds": [],
       "status": "pending"
     }
   ],
-  "projectName": "Create a Linktree-style personal landing page for sharing via Snapchat profile link",
+  "projectName": "Remove extra “Follow me on Instagram” and keep a single Instagram button linking to the provided profile",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

@@ -4,9 +4,7 @@ import { ProfileData, DEFAULT_PROFILE } from './profileTypes';
 const STORAGE_KEY = 'linktree_profile_v1';
 const MIGRATION_KEY = 'linktree_snapchat_migration_v1';
 const EMAIL_MIGRATION_KEY = 'linktree_email_migration_v1';
-const INSTAGRAM_MIGRATION_KEY = 'linktree_instagram_migration_v1';
 const SNAPCHAT_URL = 'https://www.snapchat.com/add/irfan_jujara1?share_id=C0cEQ9XkCtE&locale=en-US';
-const INSTAGRAM_URL = 'https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy';
 
 function migrateProfileWithSnapchat(profile: ProfileData): ProfileData {
   // Check if migration has already been done
@@ -65,45 +63,19 @@ function migrateProfileWithEmail(profile: ProfileData): ProfileData {
   return profile;
 }
 
-function migrateProfileWithInstagram(profile: ProfileData): ProfileData {
-  // Check if migration has already been done
-  const migrationDone = localStorage.getItem(INSTAGRAM_MIGRATION_KEY);
-  if (migrationDone === 'true') {
-    return profile;
-  }
-
-  // Check if Instagram link already exists
-  const hasInstagram = profile.links.some(link => link.url === INSTAGRAM_URL);
-  
-  if (!hasInstagram) {
-    // Add Instagram link
-    const migratedProfile = {
-      ...profile,
-      links: [
-        ...profile.links,
-        { label: 'Follow me on Instagram', url: INSTAGRAM_URL }
-      ]
-    };
-    
-    // Mark migration as done
-    localStorage.setItem(INSTAGRAM_MIGRATION_KEY, 'true');
-    
-    return migratedProfile;
-  }
-
-  // Mark migration as done even if link already exists
-  localStorage.setItem(INSTAGRAM_MIGRATION_KEY, 'true');
-  return profile;
-}
-
 function cleanupSocialLinks(profile: ProfileData): ProfileData {
-  // Remove only Twitter/X links from profile (Instagram is now allowed)
+  // Remove Twitter/X and Instagram links from profile (Instagram has dedicated button)
   const filteredLinks = profile.links.filter(link => {
     const label = link.label.toLowerCase();
     const url = link.url.toLowerCase();
     
     // Filter out Twitter/X
     if (label.includes('twitter') || url.includes('twitter.com') || url.includes('x.com')) {
+      return false;
+    }
+    
+    // Filter out Instagram (we have a dedicated button for it)
+    if (label.includes('instagram') || url.includes('instagram.com')) {
       return false;
     }
     
@@ -124,7 +96,6 @@ export function useProfileLocalStorage() {
         let loadedProfile = JSON.parse(stored) as ProfileData;
         loadedProfile = migrateProfileWithSnapchat(loadedProfile);
         loadedProfile = migrateProfileWithEmail(loadedProfile);
-        loadedProfile = migrateProfileWithInstagram(loadedProfile);
         loadedProfile = cleanupSocialLinks(loadedProfile);
         return loadedProfile;
       }

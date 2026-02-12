@@ -1,18 +1,18 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-11T20:29:11.237Z",
+  "generatedAt": "2026-02-12T04:36:51.292Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 4,
-    "implemented": 4,
+    "total": 3,
+    "implemented": 3,
     "items": [
       {
-        "id": "REQ-21",
-        "summary": "Render the phone number as a full-width button in the main Links section (same visual style as the existing Snapchat button). Clicking the phone button must open the device dialer using a safe tel: link built from the stored phone number.",
+        "id": "REQ-1",
+        "summary": "Ensure the UI shows only one Instagram button, and that it opens exactly: https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy",
         "status": "implemented",
         "plannedFiles": [
           "frontend/src/App.tsx"
@@ -22,32 +22,8 @@
         ]
       },
       {
-        "id": "REQ-22",
-        "summary": "Render the email address as a full-width button in the main Links section (same visual style as the existing Snapchat button). Clicking the email button must open the default mail client using a safe mailto: link built from the stored email address.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/App.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/App.tsx"
-        ]
-      },
-      {
-        "id": "REQ-23",
-        "summary": "Add an Instagram full-width button in the Links section (same visual style as the existing Snapchat button) that navigates to the exact Instagram profile URL: https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy . Ensure Instagram is no longer filtered/removed from links at load-time or render-time.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/App.tsx",
-          "frontend/src/features/profile/useProfileLocalStorage.ts"
-        ],
-        "matchedFiles": [
-          "frontend/src/App.tsx",
-          "frontend/src/features/profile/useProfileLocalStorage.ts"
-        ]
-      },
-      {
-        "id": "REQ-24",
-        "summary": "Update the default profile links and localStorage initialization/migration behavior so existing users will see the Instagram button even if their stored profile previously had Instagram removed. Add the Instagram link only if a link with this exact URL is not already present: https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy",
+        "id": "REQ-2",
+        "summary": "Remove the duplicate Instagram entry coming from the profile.links list so it cannot render as an additional \"Follow me on Instagram\" button for new or existing users.",
         "status": "implemented",
         "plannedFiles": [
           "frontend/src/features/profile/profileTypes.ts",
@@ -56,6 +32,17 @@
         "matchedFiles": [
           "frontend/src/features/profile/profileTypes.ts",
           "frontend/src/features/profile/useProfileLocalStorage.ts"
+        ]
+      },
+      {
+        "id": "REQ-3",
+        "summary": "Update the Instagram button’s user-facing label text to English that does not say “Follow me on Instagram” (e.g., \"Instagram\").",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/App.tsx"
         ]
       }
     ]

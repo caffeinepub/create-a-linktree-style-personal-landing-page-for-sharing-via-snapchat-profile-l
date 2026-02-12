@@ -25,13 +25,18 @@ function App() {
     }
   };
 
-  // Filter out Twitter/X links only (Instagram is now allowed)
+  // Filter out Twitter/X and Instagram links (Instagram has dedicated button)
   const filteredLinks = profile.links.filter(link => {
     const label = link.label.toLowerCase();
     const url = link.url.toLowerCase();
     
     // Filter out Twitter/X
     if (label.includes('twitter') || url.includes('twitter.com') || url.includes('x.com')) {
+      return false;
+    }
+    
+    // Filter out Instagram (we have a dedicated button for it)
+    if (label.includes('instagram') || url.includes('instagram.com')) {
       return false;
     }
     
@@ -129,7 +134,7 @@ function App() {
                   className="flex items-center justify-center gap-2 w-full py-4 px-6 rounded-xl bg-primary/20 hover:bg-primary/30 border border-primary/40 hover:border-primary/60 text-foreground font-medium text-center transition-all hover:scale-[1.02] active:scale-[0.98] hover:shadow-xl"
                 >
                   <Instagram className="w-5 h-5" />
-                  Follow me on Instagram
+                  Instagram
                 </a>
 
                 {/* Other Links */}
