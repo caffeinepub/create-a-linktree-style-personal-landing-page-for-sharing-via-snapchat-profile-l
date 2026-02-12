@@ -1,0 +1,81 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Button-style Phone, Email, and Instagram actions in Links section",
+  "requirements": [
+    {
+      "id": "REQ-21",
+      "summary": "Show profile phone as a full-width Links button that opens the dialer via a sanitized tel: link.",
+      "acceptanceCriteria": [
+        "If profile.phone is non-empty, a full-width button is visible in the Links section with a clear English label (e.g., \"Call\" or \"Call me\").",
+        "Clicking the phone button navigates to tel:<sanitizedNumber> using the existing sanitizePhoneNumber logic, and it does not open a new tab.",
+        "If profile.phone is empty, the phone button is not shown."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Move phone rendering into the main Links section as a full-width button using the same Tailwind classes as the existing Snapchat link buttons; build href as tel:${sanitizePhoneNumber(profile.phone)} (no target=_blank) and hide the button when phone is empty."
+        }
+      ]
+    },
+    {
+      "id": "REQ-22",
+      "summary": "Show profile email as a full-width Links button that opens the default mail client via a safe mailto: link.",
+      "acceptanceCriteria": [
+        "If profile.email is present and passes validateEmail, a full-width button is visible in the Links section with a clear English label (e.g., \"Email\" or \"Send email\").",
+        "Clicking the email button navigates to a mailto: link generated via createSafeMailtoLink, and it does not open a new tab.",
+        "If profile.email is missing or invalid, the email button is not shown (and the existing UI should not render an unsafe mailto link)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Render an Email full-width button in the Links section (same visual style as existing buttons) only when profile.email exists and validateEmail(profile.email) returns null; set href via createSafeMailtoLink(profile.email) and ensure it does not open a new tab."
+        }
+      ]
+    },
+    {
+      "id": "REQ-23",
+      "summary": "Add a dedicated Instagram full-width button in Links that always opens the specified Instagram URL, and stop filtering/removing Instagram links.",
+      "acceptanceCriteria": [
+        "An Instagram button is visible in the Links section and opens https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy in a new tab.",
+        "The app no longer filters out Instagram links in frontend/src/App.tsx and no longer removes Instagram links in frontend/src/features/profile/useProfileLocalStorage.ts (i.e., Instagram can render).",
+        "If a user has an older/incorrect Instagram URL stored in localStorage, clicking the Instagram button still navigates to the exact URL provided above."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Remove the Instagram portion of the defensive link filter while keeping Twitter/X filtering; add a dedicated full-width Instagram button in the Links section that always uses the exact URL https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy and opens in a new tab (target=_blank + rel=noopener noreferrer), independent of any stored link URL."
+        },
+        {
+          "path": "frontend/src/features/profile/useProfileLocalStorage.ts",
+          "operation": "modify",
+          "description": "Update localStorage load-time cleanup so it no longer removes Instagram links; keep removal of Twitter/X links only."
+        }
+      ]
+    },
+    {
+      "id": "REQ-24",
+      "summary": "Ensure default profile and localStorage migrations add the exact Instagram URL once (no duplicates) so existing users see the Instagram button, while keeping Twitter/X removed.",
+      "acceptanceCriteria": [
+        "For first-time visitors (no localStorage), the default profile includes an Instagram link entry pointing to https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy.",
+        "For returning users with existing localStorage data, the app adds the Instagram link only when a link with that exact URL is missing (no duplicates).",
+        "Twitter/X links remain removed/not shown (no Twitter/X button appears)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/features/profile/profileTypes.ts",
+          "operation": "modify",
+          "description": "Update DEFAULT_PROFILE.links to include an Instagram link entry with the exact URL https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy (alongside the existing Snapchat link), keeping defaults client-side only."
+        },
+        {
+          "path": "frontend/src/features/profile/useProfileLocalStorage.ts",
+          "operation": "modify",
+          "description": "Add a new localStorage migration that, on load, appends an Instagram link (exact URL https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy) only if it is not already present (avoid duplicates); ensure Twitter/X links continue to be removed/not shown via existing cleanup logic."
+        }
+      ]
+    }
+  ]
+}

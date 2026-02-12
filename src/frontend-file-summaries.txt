@@ -1,0 +1,12 @@
+{
+  "frontend/src/App.tsx": "Read-only profile page displaying user information with Share functionality, click-time URL validation, Phone/Email/Instagram buttons in Links section, defensive filtering to prevent Twitter/X links from rendering, and premium gold-on-black background theme.",
+  "frontend/src/features/profile/profileTypes.ts": "TypeScript interfaces for profile data structure with personalized default profile for Jujara Irfan shokat containing Snapchat and Instagram links.",
+  "frontend/src/features/profile/useProfileLocalStorage.ts": "React hook managing profile state persistence in browser localStorage with CRUD operations, Snapchat/email/Instagram migrations, and automatic cleanup that filters out Twitter/X links on load while allowing Instagram.",
+  "frontend/src/features/profile/validation.ts": "URL, phone, and email validation utilities with safe mailto link construction, unsafe-scheme detection, and a new isValidOutboundUrl helper for click-time validation to prevent injection attacks.",
+  "frontend/src/features/share/useCopyToClipboard.ts": "React hook for copying text to clipboard with modern API and legacy fallback support.",
+  "frontend/src/components/Toast.tsx": "Lightweight toast notification system with success/error variants and auto-dismiss functionality.",
+  "frontend/src/index.css": "Global styles with premium black and gold OKLCH color palette for light and dark modes, custom animations, and mobile-first typography.",
+  "frontend/tailwind.config.js": "Tailwind configuration with extended warm color theme tokens and custom font stack.",
+  "frontend/src/hooks/useQueries.ts": "Empty placeholder file as all data is client-side (no backend queries needed).",
+  "frontend/index.html": "HTML entry point with proper meta tags and semantic structure for the landing page."
+}

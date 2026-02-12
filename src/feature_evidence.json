@@ -1,0 +1,79 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-render-the-phone-number-as-a-full-width-button-in-the-main-links-section-same-visual-style-as-the-existing-snapchat-button-clicking-the-phone-button-must-open-the-device-dialer-using-a-safe-tel-link-built-from-the-stored-phone-number",
+      "featureTitle": "Render the phone number as a full-width button in the main Links section (same visual style as the existing Snapchat button). Clicking the phone button must open the device dialer using a safe tel: link built from the stored phone number.",
+      "files": [
+        "frontend/src/App.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-21"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-render-the-email-address-as-a-full-width-button-in-the-main-links-section-same-visual-style-as-the-existing-snapchat-button-clicking-the-email-button-must-open-the-default-mail-client-using-a-safe-mailto-link-built-from-the-stored-email-address",
+      "featureTitle": "Render the email address as a full-width button in the main Links section (same visual style as the existing Snapchat button). Clicking the email button must open the default mail client using a safe mailto: link built from the stored email address.",
+      "files": [
+        "frontend/src/App.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-22"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-an-instagram-full-width-button-in-the-links-section-same-visual-style-as-the-existing-snapchat-button-that-navigates-to-the-exact-instagram-profile-url-https-www-instagram-com-ae560919-igsh-nhfmdnppnzu4owvy-ensure-instagram-is-no-longer-filtered-removed-from-links-at-load-time-or-render-time",
+      "featureTitle": "Add an Instagram full-width button in the Links section (same visual style as the existing Snapchat button) that navigates to the exact Instagram profile URL: https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy . Ensure Instagram is no longer filtered/removed from links at load-time or render-time.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/features/profile/useProfileLocalStorage.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-23"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-the-default-profile-links-and-localstorage-initialization-migration-behavior-so-existing-users-will-see-the-instagram-button-even-if-their-stored-profile-previously-had-instagram-removed-add-the-instagram-link-only-if-a-link-with-this-exact-url-is-not-already-present-https-www-instagram-com-ae560919-igsh-nhfmdnppnzu4owvy",
+      "featureTitle": "Update the default profile links and localStorage initialization/migration behavior so existing users will see the Instagram button even if their stored profile previously had Instagram removed. Add the Instagram link only if a link with this exact URL is not already present: https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy",
+      "files": [
+        "frontend/src/features/profile/profileTypes.ts",
+        "frontend/src/features/profile/useProfileLocalStorage.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-24"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

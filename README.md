@@ -1,2 +1,3 @@
-# create-a-linktree-style-personal-landing-page-for-sharing-via-snapchat-profile-l
-Exported from Caffeine project: Create a Linktree-style personal landing page for sharing via Snapchat profile link
+## 
+
+To run app build and run docker image: `docker build -t app . docker run -it --network host app`

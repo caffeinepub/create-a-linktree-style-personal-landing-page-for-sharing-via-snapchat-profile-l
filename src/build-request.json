@@ -1,0 +1,92 @@
+{
+  "kind": "build_request",
+  "title": "Add button-style actions for Phone, Email, and Instagram (like Snapchat)",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-21",
+      "text": "Render the phone number as a full-width button in the main Links section (same visual style as the existing Snapchat button). Clicking the phone button must open the device dialer using a safe tel: link built from the stored phone number.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "Jaise add me on snapchat button hai vaise phone aur gmail mai bhi button aana chahiye button per click kare to direct number open ho ya gmail or insta mai bhi esa hona chahiye"
+        ]
+      },
+      "acceptanceCriteria": [
+        "If profile.phone is non-empty, a full-width button is visible in the Links section with a clear English label (e.g., \"Call\" or \"Call me\").",
+        "Clicking the phone button navigates to tel:<sanitizedNumber> using the existing sanitizePhoneNumber logic, and it does not open a new tab.",
+        "If profile.phone is empty, the phone button is not shown."
+      ]
+    },
+    {
+      "id": "REQ-22",
+      "text": "Render the email address as a full-width button in the main Links section (same visual style as the existing Snapchat button). Clicking the email button must open the default mail client using a safe mailto: link built from the stored email address.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "...phone aur gmail mai bhi button aana chahiye... gmail or insta mai bhi esa hona chahiye"
+        ]
+      },
+      "acceptanceCriteria": [
+        "If profile.email is present and passes validateEmail, a full-width button is visible in the Links section with a clear English label (e.g., \"Email\" or \"Send email\").",
+        "Clicking the email button navigates to a mailto: link generated via createSafeMailtoLink, and it does not open a new tab.",
+        "If profile.email is missing or invalid, the email button is not shown (and the existing UI should not render an unsafe mailto link)."
+      ]
+    },
+    {
+      "id": "REQ-23",
+      "text": "Add an Instagram full-width button in the Links section (same visual style as the existing Snapchat button) that navigates to the exact Instagram profile URL: https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy . Ensure Instagram is no longer filtered/removed from links at load-time or render-time.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "instgram = https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy"
+        ]
+      },
+      "acceptanceCriteria": [
+        "An Instagram button is visible in the Links section and opens https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy in a new tab.",
+        "The app no longer filters out Instagram links in frontend/src/App.tsx and no longer removes Instagram links in frontend/src/features/profile/useProfileLocalStorage.ts (i.e., Instagram can render).",
+        "If a user has an older/incorrect Instagram URL stored in localStorage, clicking the Instagram button still navigates to the exact URL provided above."
+      ]
+    },
+    {
+      "id": "REQ-24",
+      "text": "Update the default profile links and localStorage initialization/migration behavior so existing users will see the Instagram button even if their stored profile previously had Instagram removed. Add the Instagram link only if a link with this exact URL is not already present: https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "...insta mai bhi esa hona chahiye instgram = https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy"
+        ]
+      },
+      "acceptanceCriteria": [
+        "For first-time visitors (no localStorage), the default profile includes an Instagram link entry pointing to https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy.",
+        "For returning users with existing localStorage data, the app adds the Instagram link only when a link with that exact URL is missing (no duplicates).",
+        "Twitter/X links remain removed/not shown (no Twitter/X button appears)."
+      ]
+    }
+  ],
+  "constraints": [
+    "Frontend immutable paths must not be edited: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui.",
+    "Keep all persistence client-side via existing localStorage pattern; do not add external services."
+  ],
+  "nonGoals": [
+    "Do not re-enable public/unauthorized edit mode UI.",
+    "Do not change the premium black-and-gold theme beyond what is necessary to match button styling consistency.",
+    "Do not add any backend canister functionality for these buttons."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}
