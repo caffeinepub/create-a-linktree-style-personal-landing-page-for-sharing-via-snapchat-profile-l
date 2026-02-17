@@ -2,10 +2,12 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-ensure-the-ui-shows-only-one-instagram-button-and-that-it-opens-exactly-https-www-instagram-com-ae560919-igsh-nhfmdnppnzu4owvy",
-      "featureTitle": "Ensure the UI shows only one Instagram button, and that it opens exactly: https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy",
+      "featureId": "feature-refresh-the-overall-visual-theme-to-feel-more-premium-and-consistent-luxury-gold-on-obsidian-using-a-single-coherent-system-for-typography-spacing-shadows-borders-and-hover-press-states-across-the-whole-page",
+      "featureTitle": "Refresh the overall visual theme to feel more premium and consistent (luxury gold-on-obsidian), using a single coherent system for typography, spacing, shadows, borders, and hover/press states across the whole page.",
       "files": [
-        "frontend/src/App.tsx"
+        "frontend/src/App.tsx",
+        "frontend/src/components/ProfileActionButton.tsx",
+        "frontend/src/index.css"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -20,11 +22,11 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-remove-the-duplicate-instagram-entry-coming-from-the-profile-links-list-so-it-cannot-render-as-an-additional-follow-me-on-instagram-button-for-new-or-existing-users",
-      "featureTitle": "Remove the duplicate Instagram entry coming from the profile.links list so it cannot render as an additional \"Follow me on Instagram\" button for new or existing users.",
+      "featureId": "feature-improve-layout-simplicity-and-scroll-feel-by-tightening-vertical-rhythm-and-ensuring-the-profile-card-is-centered-and-balanced-across-common-viewport-sizes-mobile-through-desktop-without-content-jumping-or-overflow-issues",
+      "featureTitle": "Improve layout simplicity and scroll feel by tightening vertical rhythm and ensuring the profile card is centered and balanced across common viewport sizes (mobile through desktop), without content jumping or overflow issues.",
       "files": [
-        "frontend/src/features/profile/profileTypes.ts",
-        "frontend/src/features/profile/useProfileLocalStorage.ts"
+        "frontend/src/App.tsx",
+        "frontend/src/index.css"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -39,10 +41,11 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-update-the-instagram-button-s-user-facing-label-text-to-english-that-does-not-say-follow-me-on-instagram-e-g-instagram",
-      "featureTitle": "Update the Instagram button’s user-facing label text to English that does not say “Follow me on Instagram” (e.g., \"Instagram\").",
+      "featureId": "feature-make-cta-and-link-buttons-more-consistent-and-polished-unify-spacing-icon-sizing-text-alignment-and-ensure-snapchat-rows-with-icon-align-perfectly-with-other-rows",
+      "featureTitle": "Make CTA and link buttons more consistent and polished: unify spacing, icon sizing, text alignment, and ensure Snapchat rows (with icon) align perfectly with other rows.",
       "files": [
-        "frontend/src/App.tsx"
+        "frontend/src/App.tsx",
+        "frontend/src/components/ProfileActionButton.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -53,6 +56,25 @@
       ],
       "testIds": [
         "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-the-default-bio-copy-to-a-clearer-1-2-line-introduction-in-english-and-add-a-safe-localstorage-migration-so-existing-users-only-get-the-new-bio-if-they-have-not-customized-their-current-bio-i-e-it-still-equals-the-previous-default",
+      "featureTitle": "Update the default bio copy to a clearer 1–2 line introduction in English, and add a safe localStorage migration so existing users only get the new bio if they have not customized their current bio (i.e., it still equals the previous default).",
+      "files": [
+        "frontend/src/features/profile/profileTypes.ts",
+        "frontend/src/features/profile/useProfileLocalStorage.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
       ],
       "confidence": "high"
     }

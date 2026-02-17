@@ -4,25 +4,41 @@ import { ProfileData, DEFAULT_PROFILE } from './profileTypes';
 const STORAGE_KEY = 'linktree_profile_v1';
 const MIGRATION_KEY = 'linktree_snapchat_migration_v1';
 const EMAIL_MIGRATION_KEY = 'linktree_email_migration_v1';
+const BIO_MIGRATION_KEY = 'linktree_bio_migration_v1';
 const SNAPCHAT_URL = 'https://www.snapchat.com/add/irfan_jujara1?share_id=C0cEQ9XkCtE&locale=en-US';
+const OLD_DEFAULT_BIO = 'Welcome to my page! Connect with me through the links below.';
 
 function migrateProfileWithSnapchat(profile: ProfileData): ProfileData {
   // Check if migration has already been done
   const migrationDone = localStorage.getItem(MIGRATION_KEY);
-  if (migrationDone === 'true') {
+  
+  // Check if Snapchat link already exists
+  const snapchatIndex = profile.links.findIndex(link => link.url === SNAPCHAT_URL);
+  
+  if (snapchatIndex !== -1) {
+    // Normalize existing Snapchat link label to "Snapchat"
+    const updatedLinks = [...profile.links];
+    if (updatedLinks[snapchatIndex].label !== 'Snapchat') {
+      updatedLinks[snapchatIndex] = { ...updatedLinks[snapchatIndex], label: 'Snapchat' };
+      return {
+        ...profile,
+        links: updatedLinks
+      };
+    }
+    // Mark migration as done if label is already correct
+    if (migrationDone !== 'true') {
+      localStorage.setItem(MIGRATION_KEY, 'true');
+    }
     return profile;
   }
-
-  // Check if Snapchat link already exists
-  const hasSnapchat = profile.links.some(link => link.url === SNAPCHAT_URL);
   
-  if (!hasSnapchat) {
-    // Add Snapchat link
+  // If migration not done and Snapchat link doesn't exist, add it
+  if (migrationDone !== 'true') {
     const migratedProfile = {
       ...profile,
       links: [
         ...profile.links,
-        { label: 'Add me on Snapchat', url: SNAPCHAT_URL }
+        { label: 'Snapchat', url: SNAPCHAT_URL }
       ]
     };
     
@@ -32,8 +48,6 @@ function migrateProfileWithSnapchat(profile: ProfileData): ProfileData {
     return migratedProfile;
   }
 
-  // Mark migration as done even if link already exists
-  localStorage.setItem(MIGRATION_KEY, 'true');
   return profile;
 }
 
@@ -60,6 +74,31 @@ function migrateProfileWithEmail(profile: ProfileData): ProfileData {
 
   // Mark migration as done even if email already exists
   localStorage.setItem(EMAIL_MIGRATION_KEY, 'true');
+  return profile;
+}
+
+function migrateBioIfDefault(profile: ProfileData): ProfileData {
+  // Check if migration has already been done
+  const migrationDone = localStorage.getItem(BIO_MIGRATION_KEY);
+  if (migrationDone === 'true') {
+    return profile;
+  }
+
+  // Only update bio if it exactly matches the old default
+  if (profile.bio === OLD_DEFAULT_BIO) {
+    const migratedProfile = {
+      ...profile,
+      bio: DEFAULT_PROFILE.bio
+    };
+    
+    // Mark migration as done
+    localStorage.setItem(BIO_MIGRATION_KEY, 'true');
+    
+    return migratedProfile;
+  }
+
+  // Mark migration as done even if bio doesn't match (user customized it)
+  localStorage.setItem(BIO_MIGRATION_KEY, 'true');
   return profile;
 }
 
@@ -93,68 +132,66 @@ export function useProfileLocalStorage() {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
-        let loadedProfile = JSON.parse(stored) as ProfileData;
+        let loadedProfile = JSON.parse(stored);
+        
+        // Run migrations
         loadedProfile = migrateProfileWithSnapchat(loadedProfile);
         loadedProfile = migrateProfileWithEmail(loadedProfile);
+        loadedProfile = migrateBioIfDefault(loadedProfile);
         loadedProfile = cleanupSocialLinks(loadedProfile);
+        
+        // Save migrated profile back to storage
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(loadedProfile));
+        
         return loadedProfile;
       }
+      return DEFAULT_PROFILE;
     } catch (error) {
-      console.error('Failed to load profile from localStorage:', error);
+      console.error('Error loading profile from localStorage:', error);
+      return DEFAULT_PROFILE;
     }
-    return DEFAULT_PROFILE;
   });
 
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(profile));
     } catch (error) {
-      console.error('Failed to save profile to localStorage:', error);
+      console.error('Error saving profile to localStorage:', error);
     }
   }, [profile]);
 
-  const updateProfile = (newProfile: ProfileData) => {
-    setProfile(newProfile);
-  };
-
-  const updateLink = (index: number, label: string, url: string) => {
-    setProfile((prev) => {
-      const newLinks = [...prev.links];
-      newLinks[index] = { label, url };
-      return { ...prev, links: newLinks };
-    });
+  const updateProfile = (updates: Partial<ProfileData>) => {
+    setProfile(prev => ({ ...prev, ...updates }));
   };
 
   const addLink = (label: string, url: string) => {
-    setProfile((prev) => ({
+    setProfile(prev => ({
       ...prev,
       links: [...prev.links, { label, url }]
     }));
   };
 
   const removeLink = (index: number) => {
-    setProfile((prev) => ({
+    setProfile(prev => ({
       ...prev,
       links: prev.links.filter((_, i) => i !== index)
     }));
   };
 
-  const moveLink = (index: number, direction: 'up' | 'down') => {
-    setProfile((prev) => {
-      const newLinks = [...prev.links];
-      const targetIndex = direction === 'up' ? index - 1 : index + 1;
-      if (targetIndex < 0 || targetIndex >= newLinks.length) return prev;
-      [newLinks[index], newLinks[targetIndex]] = [newLinks[targetIndex], newLinks[index]];
-      return { ...prev, links: newLinks };
-    });
+  const updateLink = (index: number, label: string, url: string) => {
+    setProfile(prev => ({
+      ...prev,
+      links: prev.links.map((link, i) => 
+        i === index ? { label, url } : link
+      )
+    }));
   };
 
   return {
     profile,
     updateProfile,
-    updateLink,
     addLink,
     removeLink,
-    moveLink
+    updateLink
   };
 }

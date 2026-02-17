@@ -13,10 +13,10 @@ export interface ProfileData {
 
 export const DEFAULT_PROFILE: ProfileData = {
   displayName: 'Jujara Irfan shokat',
-  bio: 'Welcome to my page! Connect with me through the links below.',
+  bio: 'Creative professional & digital enthusiast. Let\'s connect!',
   phone: '9687626609',
   email: 'ae560919@gmail.com',
   links: [
-    { label: 'Add me on Snapchat', url: 'https://www.snapchat.com/add/irfan_jujara1?share_id=C0cEQ9XkCtE&locale=en-US' }
+    { label: 'Snapchat', url: 'https://www.snapchat.com/add/irfan_jujara1?share_id=C0cEQ9XkCtE&locale=en-US' }
   ]
 };

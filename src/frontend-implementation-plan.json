@@ -1,57 +1,94 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Deduplicate Instagram CTA and keep a single button linking to the provided profile",
+  "title": "Premium gold-on-obsidian UI polish for profile landing page",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Ensure only a single Instagram button renders on the landing page and opens the exact provided Instagram profile URL in a new tab.",
+      "summary": "Refresh visual theme to a more premium, consistent luxury gold-on-obsidian system (typography, spacing, borders, shadows, and interaction states) across the profile landing page.",
       "acceptanceCriteria": [
-        "On the landing page, there is exactly one visible Instagram-related button/link.",
-        "Clicking/tapping the Instagram button navigates to https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy in a new tab.",
-        "No button with the label \"Follow me on Instagram\" is shown anywhere on the page."
+        "All interactive elements (Share button, CTA buttons, link buttons) share a consistent shape, border, shadow, and hover/active behavior.",
+        "Typography scale is consistent (display name, bio, button labels, footer) and readable on mobile and desktop.",
+        "No new features are introduced; this is a visual/UX polish pass only."
       ],
       "file_operations": [
         {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Refine the global gold/obsidian theme tokens and base typography defaults to support a consistent premium look (e.g., tuned foreground contrast, border/ring/shadow feel, and smoother interactive transitions) without introducing new features."
+        },
+        {
+          "path": "frontend/src/components/ProfileActionButton.tsx",
+          "operation": "create",
+          "description": "Add a small, reusable button/link component that standardizes shape, border, shadow, spacing, and hover/press states for all profile actions (used for Share, CTA, and link rows)."
+        },
+        {
           "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Keep the dedicated Instagram action as the only Instagram-related UI element by (1) ensuring the dedicated button uses the exact provided URL and target=_blank behavior, and (2) preventing any Instagram-related item from profile.links from rendering in the \"Other Links\" list (as a safety net in addition to localStorage cleanup)."
+          "description": "Adopt the shared premium UI system by switching Share/CTA/link rows to the new reusable button component and aligning typography/spacing/shadows across header, card, and footer while preserving existing behavior and hard-coded Instagram/Snapchat URLs."
         }
       ]
     },
     {
       "id": "REQ-2",
-      "summary": "Remove the duplicate Instagram item from default profile.links and sanitize existing localStorage so Instagram does not render as a second link button.",
+      "summary": "Simplify layout and improve scroll feel by tightening vertical rhythm and keeping the profile card centered and stable across viewport sizes, avoiding overflow and scroll jitter.",
       "acceptanceCriteria": [
-        "For first-time visitors, the default profile data does not include an Instagram link entry inside profile.links (so the Instagram button is not duplicated).",
-        "For returning visitors with existing localStorage data, any existing profile.links item labeled \"Follow me on Instagram\" and/or pointing to https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy is removed (or otherwise prevented from rendering) so only the single dedicated Instagram button remains.",
-        "After reload, the page still renders correctly and the remaining non-Instagram links (e.g., Snapchat) still display as buttons."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/features/profile/profileTypes.ts",
-          "operation": "modify",
-          "description": "Update DEFAULT_PROFILE so profile.links no longer contains any Instagram entry (leaving only the non-Instagram links such as Snapchat) to prevent duplication for first-time visitors."
-        },
-        {
-          "path": "frontend/src/features/profile/useProfileLocalStorage.ts",
-          "operation": "modify",
-          "description": "Stop adding Instagram into profile.links during localStorage migrations and add a sanitization step that removes any existing Instagram-related link item (by matching label \"Follow me on Instagram\" and/or matching the provided Instagram URL), while preserving other links like Snapchat; ensure the cleaned profile is persisted back to localStorage."
-        }
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "summary": "Change the dedicated Instagram button label to an English label that is not “Follow me on Instagram” while keeping icon and styling consistent.",
-      "acceptanceCriteria": [
-        "The Instagram button label is in English and does not contain the phrase \"Follow me on Instagram\".",
-        "The Instagram button still uses the Instagram icon and retains the existing button styling consistent with the other action buttons."
+        "On small screens, the card fits comfortably with appropriate padding and no horizontal overflow.",
+        "On large screens, the profile card remains centered with a sensible max width and consistent whitespace.",
+        "Background remains fixed and does not cause visual jitter during scroll."
       ],
       "file_operations": [
         {
           "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Update the dedicated Instagram button’s visible label text to an English alternative (e.g., \"Instagram\") while keeping the existing Instagram icon and button styling unchanged."
+          "description": "Adjust page structure (header/main/footer spacing), card max-width and padding, and background layering to ensure a centered, balanced card layout from mobile to desktop with no horizontal overflow and stable scroll (fixed background without jitter)."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Add any minimal global base/utility tweaks needed to prevent horizontal overflow and to keep scroll/viewport behavior stable (e.g., consistent body sizing/overflow handling) while maintaining the existing theme approach."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Polish CTA/link buttons for consistent sizing and alignment, including perfect Snapchat row alignment and crisp icon rendering.",
+      "acceptanceCriteria": [
+        "All buttons use the same height, padding, border radius, and icon size rules.",
+        "Buttons with and without icons align text consistently (no left/right shifting).",
+        "Snapchat icon renders crisply at the same visual size as lucide icons and is vertically centered."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/ProfileActionButton.tsx",
+          "operation": "modify",
+          "description": "Ensure the shared button component enforces uniform height, padding, border radius, icon slot sizing, and label alignment; include a reserved icon container so rows without icons still align with icon rows."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Render all CTA/link rows through the shared button component, passing lucide icons and the Snapchat image consistently so icon sizing and vertical centering match across all rows (including Snapchat)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Update the default bio copy and add a safe localStorage migration that only updates bio when it matches the previous default string.",
+      "acceptanceCriteria": [
+        "DEFAULT_PROFILE.bio is updated to a clearer short English bio.",
+        "A migration runs on load that updates stored bio only when it exactly matches the old default bio string.",
+        "Users who already customized their bio keep their bio unchanged."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/features/profile/profileTypes.ts",
+          "operation": "modify",
+          "description": "Update DEFAULT_PROFILE.bio to a clearer 1–2 line English introduction, retaining all other default fields as-is."
+        },
+        {
+          "path": "frontend/src/features/profile/useProfileLocalStorage.ts",
+          "operation": "modify",
+          "description": "Add a localStorage migration on load that compares loadedProfile.bio against the previous default bio string and updates it to the new DEFAULT_PROFILE.bio only on an exact match; do not overwrite user-customized bios."
         }
       ]
     }

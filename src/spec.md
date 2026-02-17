@@ -1,11 +1,12 @@
 # Specification
 
 ## Summary
-**Goal:** Remove the duplicate “Follow me on Instagram” UI and ensure a single Instagram button links to the provided Instagram profile.
+**Goal:** Polish the profile landing page UI to feel more premium and consistent (luxury gold-on-obsidian) while improving layout balance and button alignment, without adding new features.
 
 **Planned changes:**
-- Update the landing page to display exactly one Instagram button/link that opens `https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy` in a new tab.
-- Remove (or prevent rendering of) any duplicate Instagram entry from `profile.links`, including cleaning existing localStorage data that contains a “Follow me on Instagram” item and/or the same Instagram URL.
-- Change the Instagram button label to English text that is not “Follow me on Instagram” (e.g., “Instagram”), while keeping the Instagram icon and existing button styling.
+- Refresh visual theme system (typography scale, spacing, borders, shadows, hover/press states) and apply consistently across all interactive elements (Share, CTAs, link rows).
+- Tighten vertical rhythm and center/balance the profile card across mobile and desktop with a sensible max width, no overflow, and a fixed background that doesn’t jitter on scroll.
+- Standardize CTA/link button layout rules (height, padding, radius, icon sizing, text alignment) so icon and non-icon rows align consistently, including the Snapchat row.
+- Update the default bio copy to a clearer 1–2 line English intro and add a localStorage migration that only replaces the bio if it exactly matches the old default string.
 
-**User-visible outcome:** The landing page shows only one Instagram button labeled in English (not “Follow me on Instagram”); clicking it opens the specified Instagram profile in a new tab, and other non-Instagram links (e.g., Snapchat) continue to work normally.
+**User-visible outcome:** The profile page looks more luxurious and cohesive, scrolls smoothly, buttons/rows align cleanly (including Snapchat), and new users see an improved default bio while existing customized bios remain unchanged.

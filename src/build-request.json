@@ -1,73 +1,108 @@
 {
   "kind": "build_request",
-  "title": "Remove extra “Follow me on Instagram” and keep a single Instagram button linking to the provided profile",
+  "title": "Apply UI/UX improvements to the profile landing page",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Ensure the UI shows only one Instagram button, and that it opens exactly: https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy",
+      "text": "Refresh the overall visual theme to feel more premium and consistent (luxury gold-on-obsidian), using a single coherent system for typography, spacing, shadows, borders, and hover/press states across the whole page.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "msg-recent-1"
         ],
         "quotes": [
-          "Follow me on instagram button is delete and and on instagram button   https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy"
+          "Ha kari do update"
         ]
       },
       "acceptanceCriteria": [
-        "On the landing page, there is exactly one visible Instagram-related button/link.",
-        "Clicking/tapping the Instagram button navigates to https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy in a new tab.",
-        "No button with the label \"Follow me on Instagram\" is shown anywhere on the page."
+        "All interactive elements (Share button, CTA buttons, link buttons) share a consistent shape, border, shadow, and hover/active behavior.",
+        "Typography scale is consistent (display name, bio, button labels, footer) and readable on mobile and desktop.",
+        "No new features are introduced; this is a visual/UX polish pass only."
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Remove the duplicate Instagram entry coming from the profile.links list so it cannot render as an additional \"Follow me on Instagram\" button for new or existing users.",
+      "text": "Improve layout simplicity and scroll feel by tightening vertical rhythm and ensuring the profile card is centered and balanced across common viewport sizes (mobile through desktop), without content jumping or overflow issues.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "msg-recent-1"
         ],
         "quotes": [
-          "Follow me on instagram button is delete and and on instagram button   https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy"
+          "Ha kari do update"
         ]
       },
       "acceptanceCriteria": [
-        "For first-time visitors, the default profile data does not include an Instagram link entry inside profile.links (so the Instagram button is not duplicated).",
-        "For returning visitors with existing localStorage data, any existing profile.links item labeled \"Follow me on Instagram\" and/or pointing to https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy is removed (or otherwise prevented from rendering) so only the single dedicated Instagram button remains.",
-        "After reload, the page still renders correctly and the remaining non-Instagram links (e.g., Snapchat) still display as buttons."
+        "On small screens, the card fits comfortably with appropriate padding and no horizontal overflow.",
+        "On large screens, the profile card remains centered with a sensible max width and consistent whitespace.",
+        "Background remains fixed and does not cause visual jitter during scroll."
       ]
     },
     {
       "id": "REQ-3",
-      "text": "Update the Instagram button’s user-facing label text to English that does not say “Follow me on Instagram” (e.g., \"Instagram\").",
+      "text": "Make CTA and link buttons more consistent and polished: unify spacing, icon sizing, text alignment, and ensure Snapchat rows (with icon) align perfectly with other rows.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "msg-recent-1"
         ],
         "quotes": [
-          "Follow me on instagram button is delete and and on instagram button   https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy"
+          "Ha kari do update"
         ]
       },
       "acceptanceCriteria": [
-        "The Instagram button label is in English and does not contain the phrase \"Follow me on Instagram\".",
-        "The Instagram button still uses the Instagram icon and retains the existing button styling consistent with the other action buttons."
+        "All buttons use the same height, padding, border radius, and icon size rules.",
+        "Buttons with and without icons align text consistently (no left/right shifting).",
+        "Snapchat icon renders crisply at the same visual size as lucide icons and is vertically centered."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Update the default bio copy to a clearer 1–2 line introduction in English, and add a safe localStorage migration so existing users only get the new bio if they have not customized their current bio (i.e., it still equals the previous default).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-recent-1"
+        ],
+        "quotes": [
+          "Ha kari do update"
+        ]
+      },
+      "acceptanceCriteria": [
+        "DEFAULT_PROFILE.bio is updated to a clearer short English bio.",
+        "A migration runs on load that updates stored bio only when it exactly matches the old default bio string.",
+        "Users who already customized their bio keep their bio unchanged."
       ]
     }
   ],
   "constraints": [
-    "Do not modify any files under frontend/src/components/ui or any other frontend immutablePaths listed in SYSTEM_CONTEXT.",
-    "Do not add new backend services; keep data client-side in localStorage as currently implemented."
+    "Do not modify any files under frontend/src/components/ui (compose existing UI components instead).",
+    "Do not edit frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, or frontend/src/main.tsx.",
+    "Keep the backend as a single-actor Motoko canister; no new backend persistence is required for this UI update.",
+    "Preserve the existing hard-coded Instagram and Snapchat URLs in frontend/src/App.tsx unless explicitly requested otherwise."
   ],
   "nonGoals": [
-    "Adding additional social platforms or new links beyond the Instagram change requested.",
-    "Changing the gold-and-black theme, background image, or other unrelated styling.",
-    "Implementing backend persistence or authentication changes."
+    "Adding an admin/editor UI for changing profile data.",
+    "Moving profile storage from localStorage to the backend.",
+    "Adding new social networks or new outbound link types.",
+    "Changing authentication or adding third-party auth providers."
   ],
   "imageRequirements": {
     "required": [],
-    "edits": []
+    "edits": [
+      "Increase perceived quality/cleanliness of the gold/black background while keeping the same overall vibe (landing-bg-goldblack.dim_1600x900.png > landing-bg-goldblack-v2.dim_1600x900.png)",
+      "Improve the profile avatar lighting/clarity and crop for a cleaner circular presentation (avatar-profile.dim_512x512.png > avatar-profile-v2.dim_512x512.png)"
+    ]
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
   }
 }

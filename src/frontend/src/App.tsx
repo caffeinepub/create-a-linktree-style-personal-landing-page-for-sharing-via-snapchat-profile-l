@@ -4,6 +4,7 @@ import { useCopyToClipboard } from './features/share/useCopyToClipboard';
 import { Toaster } from './components/Toast';
 import { toast } from './components/Toast';
 import { sanitizePhoneNumber, validateEmail, createSafeMailtoLink, isValidOutboundUrl } from './features/profile/validation';
+import { ProfileActionButton } from './components/ProfileActionButton';
 
 function App() {
   const { profile } = useProfileLocalStorage();
@@ -44,29 +45,33 @@ function App() {
   });
 
   const INSTAGRAM_URL = 'https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy';
+  const SNAPCHAT_URL = 'https://www.snapchat.com/add/irfan_jujara1?share_id=C0cEQ9XkCtE&locale=en-US';
+
+  // Helper to check if a link is the Snapchat link
+  const isSnapchatLink = (url: string) => url === SNAPCHAT_URL;
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
+    <div className="min-h-screen relative">
       {/* Background Image with Overlay */}
       <div 
         className="fixed inset-0 z-0"
         style={{
-          backgroundImage: 'url(/assets/generated/landing-bg-goldblack.dim_1600x900.png)',
+          backgroundImage: 'url(/assets/generated/landing-bg-goldblack-v2.dim_1600x900.png)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-background/98 via-background/95 to-background/98" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/97 via-background/94 to-background/97" />
       </div>
 
       {/* Content */}
       <div className="relative z-10 min-h-screen flex flex-col">
         {/* Header */}
-        <header className="w-full px-4 py-6 flex justify-end gap-3">
+        <header className="w-full px-4 sm:px-6 py-5 flex justify-end">
           <button
             onClick={handleShare}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/90 hover:bg-accent text-accent-foreground font-medium transition-all hover:scale-105 active:scale-95 backdrop-blur-sm shadow-lg"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-accent/90 hover:bg-accent text-accent-foreground font-medium transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] backdrop-blur-sm shadow-md hover:shadow-lg border border-accent/20"
             aria-label="Share profile"
           >
             <Share2 className="w-4 h-4" />
@@ -75,80 +80,83 @@ function App() {
         </header>
 
         {/* Main Content */}
-        <main className="flex-1 flex items-center justify-center px-4 py-8">
-          <div className="w-full max-w-2xl">
+        <main className="flex-1 flex items-center justify-center px-4 sm:px-6 py-6">
+          <div className="w-full max-w-md">
             {/* Profile Card */}
-            <div className="bg-card/90 backdrop-blur-md rounded-3xl shadow-2xl p-8 sm:p-12 border border-primary/30">
+            <div className="bg-card/85 backdrop-blur-xl rounded-2xl shadow-2xl p-6 sm:p-8 border border-primary/25">
               {/* Avatar */}
-              <div className="flex justify-center mb-6">
+              <div className="flex justify-center mb-5">
                 <div className="relative">
                   <img
-                    src="/assets/generated/avatar-profile.dim_512x512.png"
+                    src="/assets/generated/avatar-profile-v2.dim_512x512.png"
                     alt="Profile avatar"
-                    className="w-28 h-28 sm:w-32 sm:h-32 rounded-full object-cover object-center ring-4 ring-primary/40 shadow-xl"
-                    width="128"
-                    height="128"
+                    className="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover object-center ring-4 ring-primary/30 shadow-xl"
+                    width="112"
+                    height="112"
                   />
                 </div>
               </div>
 
               {/* Profile Info */}
-              <div className="text-center mb-8">
-                <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-3">
+              <div className="text-center mb-6">
+                <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2 tracking-tight">
                   {profile.displayName}
                 </h1>
-                <p className="text-base sm:text-lg text-muted-foreground mb-4 leading-relaxed">
+                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                   {profile.bio}
                 </p>
               </div>
 
               {/* Links Section */}
-              <div className="space-y-3">
+              <div className="space-y-2.5">
                 {/* Phone Button */}
                 {profile.phone && (
-                  <a
+                  <ProfileActionButton
                     href={`tel:${sanitizePhoneNumber(profile.phone)}`}
-                    className="flex items-center justify-center gap-2 w-full py-4 px-6 rounded-xl bg-primary/20 hover:bg-primary/30 border border-primary/40 hover:border-primary/60 text-foreground font-medium text-center transition-all hover:scale-[1.02] active:scale-[0.98] hover:shadow-xl"
+                    icon={<Phone className="w-5 h-5" />}
                   >
-                    <Phone className="w-5 h-5" />
                     Call me
-                  </a>
+                  </ProfileActionButton>
                 )}
 
                 {/* Email Button */}
                 {profile.email && validateEmail(profile.email) === null && (
-                  <a
+                  <ProfileActionButton
                     href={createSafeMailtoLink(profile.email)}
-                    className="flex items-center justify-center gap-2 w-full py-4 px-6 rounded-xl bg-primary/20 hover:bg-primary/30 border border-primary/40 hover:border-primary/60 text-foreground font-medium text-center transition-all hover:scale-[1.02] active:scale-[0.98] hover:shadow-xl"
+                    icon={<Mail className="w-5 h-5" />}
                   >
-                    <Mail className="w-5 h-5" />
                     Send email
-                  </a>
+                  </ProfileActionButton>
                 )}
 
                 {/* Instagram Button */}
-                <a
+                <ProfileActionButton
                   href={INSTAGRAM_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 w-full py-4 px-6 rounded-xl bg-primary/20 hover:bg-primary/30 border border-primary/40 hover:border-primary/60 text-foreground font-medium text-center transition-all hover:scale-[1.02] active:scale-[0.98] hover:shadow-xl"
+                  icon={<Instagram className="w-5 h-5" />}
+                  external
                 >
-                  <Instagram className="w-5 h-5" />
                   Instagram
-                </a>
+                </ProfileActionButton>
 
                 {/* Other Links */}
                 {filteredLinks.map((link, index) => (
-                  <a
+                  <ProfileActionButton
                     key={index}
                     href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     onClick={(e) => handleLinkClick(e, link.url)}
-                    className="block w-full py-4 px-6 rounded-xl bg-primary/20 hover:bg-primary/30 border border-primary/40 hover:border-primary/60 text-foreground font-medium text-center transition-all hover:scale-[1.02] active:scale-[0.98] hover:shadow-xl"
+                    icon={
+                      isSnapchatLink(link.url) ? (
+                        <img 
+                          src="/assets/generated/snapchat-logo.dim_64x64.png" 
+                          alt="Snapchat" 
+                          className="w-5 h-5 object-contain"
+                        />
+                      ) : undefined
+                    }
+                    external
                   >
                     {link.label}
-                  </a>
+                  </ProfileActionButton>
                 ))}
               </div>
             </div>
@@ -156,7 +164,7 @@ function App() {
         </main>
 
         {/* Footer */}
-        <footer className="w-full px-4 py-6 text-center text-sm text-muted-foreground">
+        <footer className="w-full px-4 sm:px-6 py-5 text-center text-xs sm:text-sm text-muted-foreground">
           <p>
             Built with ❤️ using{' '}
             <a

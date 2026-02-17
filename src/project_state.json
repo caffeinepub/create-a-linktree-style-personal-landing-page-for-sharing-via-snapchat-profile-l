@@ -1,34 +1,41 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "App with social/action buttons needs Instagram button updated: remove the \"Follow me on Instagram\" button and ensure a single Instagram button opens the specified profile URL.",
+  "summary": "New project",
   "architectural_notes": [],
-  "known_issues": [
-    "Instagram UI currently shows an extra \"Follow me on Instagram\" button instead of a single button linking to the provided profile URL."
-  ],
-  "isFixRequest": true,
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Edit Images\n- Increase perceived quality/cleanliness of the gold/black background while keeping the same overall vibe (landing-bg-goldblack.dim_1600x900.png > landing-bg-goldblack-v2.dim_1600x900.png)\n- Improve the profile avatar lighting/clarity and crop for a cleaner circular presentation (avatar-profile.dim_512x512.png > avatar-profile-v2.dim_512x512.png)",
   "existing_features": [
     {
-      "id": "feature-ensure-the-ui-shows-only-one-instagram-button-and-that-it-opens-exactly-https-www-instagram-com-ae560919-igsh-nhfmdnppnzu4owvy",
-      "title": "Ensure the UI shows only one Instagram button, and that it opens exactly: https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy",
+      "id": "feature-refresh-the-overall-visual-theme-to-feel-more-premium-and-consistent-luxury-gold-on-obsidian-using-a-single-coherent-system-for-typography-spacing-shadows-borders-and-hover-press-states-across-the-whole-page",
+      "title": "Refresh the overall visual theme to feel more premium and consistent (luxury gold-on-obsidian), using a single coherent system for typography, spacing, shadows, borders, and hover/press states across the whole page.",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     },
     {
-      "id": "feature-remove-the-duplicate-instagram-entry-coming-from-the-profile-links-list-so-it-cannot-render-as-an-additional-follow-me-on-instagram-button-for-new-or-existing-users",
-      "title": "Remove the duplicate Instagram entry coming from the profile.links list so it cannot render as an additional \"Follow me on Instagram\" button for new or existing users.",
+      "id": "feature-improve-layout-simplicity-and-scroll-feel-by-tightening-vertical-rhythm-and-ensuring-the-profile-card-is-centered-and-balanced-across-common-viewport-sizes-mobile-through-desktop-without-content-jumping-or-overflow-issues",
+      "title": "Improve layout simplicity and scroll feel by tightening vertical rhythm and ensuring the profile card is centered and balanced across common viewport sizes (mobile through desktop), without content jumping or overflow issues.",
       "reqIds": [
         "REQ-2"
       ],
       "version": 1
     },
     {
-      "id": "feature-update-the-instagram-button-s-user-facing-label-text-to-english-that-does-not-say-follow-me-on-instagram-e-g-instagram",
-      "title": "Update the Instagram button’s user-facing label text to English that does not say “Follow me on Instagram” (e.g., \"Instagram\").",
+      "id": "feature-make-cta-and-link-buttons-more-consistent-and-polished-unify-spacing-icon-sizing-text-alignment-and-ensure-snapchat-rows-with-icon-align-perfectly-with-other-rows",
+      "title": "Make CTA and link buttons more consistent and polished: unify spacing, icon sizing, text alignment, and ensure Snapchat rows (with icon) align perfectly with other rows.",
       "reqIds": [
         "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-default-bio-copy-to-a-clearer-1-2-line-introduction-in-english-and-add-a-safe-localstorage-migration-so-existing-users-only-get-the-new-bio-if-they-have-not-customized-their-current-bio-i-e-it-still-equals-the-previous-default",
+      "title": "Update the default bio copy to a clearer 1–2 line introduction in English, and add a safe localStorage migration so existing users only get the new bio if they have not customized their current bio (i.e., it still equals the previous default).",
+      "reqIds": [
+        "REQ-4"
       ],
       "version": 1
     }
@@ -36,12 +43,12 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Remove the \"Follow me on Instagram\" button and keep only one Instagram button that opens https://www.instagram.com/ae560919?igsh=NHFmdnppNzU4OWVy",
+      "summary": "Apply UI/UX improvements to profile page (higher-quality background, clearer bio, consistent colors, improved spacing/sizing, consistent CTA button styles, simplified scroll/layout)",
       "reqIds": [],
       "status": "pending"
     }
   ],
-  "projectName": "Remove extra “Follow me on Instagram” and keep a single Instagram button linking to the provided profile",
+  "projectName": "Apply UI/UX improvements to the profile landing page",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

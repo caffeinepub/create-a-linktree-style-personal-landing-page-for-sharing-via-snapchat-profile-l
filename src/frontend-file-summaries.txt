@@ -1,12 +1,13 @@
 {
-  "frontend/src/App.tsx": "Read-only profile page displaying user information with Share functionality, click-time URL validation, Phone/Email/Instagram buttons in Links section, defensive filtering to prevent Twitter/X and Instagram links from rendering in Other Links section (Instagram has dedicated button with \"Instagram\" label), and premium gold-on-black background theme.",
-  "frontend/src/features/profile/profileTypes.ts": "TypeScript interfaces for profile data structure with personalized default profile for Jujara Irfan shokat containing only Snapchat link (Instagram removed as it has dedicated button).",
-  "frontend/src/features/profile/useProfileLocalStorage.ts": "React hook managing profile state persistence in browser localStorage with CRUD operations, Snapchat/email migrations, and automatic cleanup that filters out Twitter/X and Instagram links on load (Instagram has dedicated button).",
+  "frontend/src/App.tsx": "Main profile landing page with premium gold-on-obsidian theme, Share button, avatar, bio, Phone/Email/Instagram/Snapchat action buttons using ProfileActionButton component, centered card layout with fixed background, and responsive mobile-first design.",
+  "frontend/src/features/profile/profileTypes.ts": "TypeScript interfaces for profile data structure with updated default bio (\"Creative professional & digital enthusiast. Let's connect!\") for Jujara Irfan shokat.",
+  "frontend/src/features/profile/useProfileLocalStorage.ts": "React hook managing profile state persistence in localStorage with CRUD operations, Snapchat/email migrations, bio migration that updates only when matching old default string, and automatic cleanup filtering out Twitter/X and Instagram links.",
   "frontend/src/features/profile/validation.ts": "URL, phone, and email validation utilities with safe mailto link construction, unsafe-scheme detection, and a new isValidOutboundUrl helper for click-time validation to prevent injection attacks.",
   "frontend/src/features/share/useCopyToClipboard.ts": "React hook for copying text to clipboard with modern API and legacy fallback support.",
   "frontend/src/components/Toast.tsx": "Lightweight toast notification system with success/error variants and auto-dismiss functionality.",
-  "frontend/src/index.css": "Global styles with premium black and gold OKLCH color palette for light and dark modes, custom animations, and mobile-first typography.",
-  "frontend/tailwind.config.js": "Tailwind configuration with extended warm color theme tokens and custom font stack.",
+  "frontend/src/index.css": "Global styles with refined premium obsidian and gold OKLCH color palette for light and dark modes, Inter font family, smooth transitions, and overflow prevention for stable scroll behavior.",
+  "frontend/tailwind.config.js": "Tailwind configuration with extended gold-on-obsidian theme tokens, Inter font stack, and custom design system utilities.",
   "frontend/src/hooks/useQueries.ts": "Empty placeholder file as all data is client-side (no backend queries needed).",
-  "frontend/index.html": "HTML entry point with proper meta tags and semantic structure for the landing page."
+  "frontend/index.html": "HTML entry point with proper meta tags and semantic structure for the landing page.",
+  "frontend/src/components/ProfileActionButton.tsx": "Reusable button component for profile actions with consistent shape, border, shadow, spacing, hover/press states, and icon alignment (includes reserved icon container for consistent text alignment across all buttons)."
 }
